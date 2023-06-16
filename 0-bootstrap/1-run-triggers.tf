@@ -18,6 +18,10 @@ resource "tfe_workspace" "run-triggers-upstream-a" {
     ingress_submodules = false
     oauth_token_id     = var.oauth_token_id
   }
+
+  remote_state_consumer_ids = [
+    tfe_workspace.run-triggers-downstream.id
+  ]
 }
 
 
@@ -35,6 +39,10 @@ resource "tfe_workspace" "run-triggers-upstream-b" {
     ingress_submodules = false
     oauth_token_id     = var.oauth_token_id
   }
+
+  remote_state_consumer_ids = [
+    tfe_workspace.run-triggers-downstream.id
+  ]
 }
 
 
@@ -73,5 +81,12 @@ resource "tfe_variable" "run-triggers-downstream-upstreams" {
     "1-upstream-a",
     "1-upstream-b",
   ])
+  workspace_id = tfe_workspace.run-triggers-downstream.id
+}
+
+resource "tfe_variable" "run-triggers-downstream-tfc_org" {
+  category     = "terraform"
+  key          = "tfc_org"
+  value        = var.tfc_org
   workspace_id = tfe_workspace.run-triggers-downstream.id
 }
