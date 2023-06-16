@@ -3,7 +3,7 @@ terraform {
     organization = "fancycorp"
 
     workspaces {
-      tags = ["multispace:upstream"]
+      tags = ["multispace:upstream", "example:1-run-triggers"]
     }
   }
 
