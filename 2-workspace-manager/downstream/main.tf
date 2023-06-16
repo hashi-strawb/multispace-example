@@ -15,7 +15,14 @@ terraform {
   }
 }
 
+# Simulate this workspace doing a bunch of useful and interesting things
+resource "time_sleep" "wait_30_seconds" {
+  create_duration = "30s"
+}
+
 resource "random_pet" "example" {
+  depends_on = [time_sleep.wait_30_seconds]
+
   length    = 1
   prefix    = terraform.workspace
   separator = ":"
