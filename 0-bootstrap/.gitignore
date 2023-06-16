@@ -1,0 +1,3 @@
+# do not commit auto-generated TF code.
+# force me to move it to another directory first.
+generated.tf
