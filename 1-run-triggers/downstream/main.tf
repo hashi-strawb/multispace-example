@@ -26,7 +26,7 @@ variable "upstream_workspaces" {
 }
 
 variable "tfc_org" {
-  default = "fancycorp"
+  type = string
 }
 
 data "tfe_outputs" "upstream" {
