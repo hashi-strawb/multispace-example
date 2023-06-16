@@ -3,7 +3,7 @@ terraform {
     organization = "fancycorp"
 
     workspaces {
-      tags = ["multispace:downstream", "example:2-workspace-manager"]
+      tags = ["multispace:upstream"]
     }
   }
 
@@ -21,8 +21,6 @@ resource "time_sleep" "wait_30_seconds" {
 }
 
 resource "random_pet" "example" {
-  depends_on = [time_sleep.wait_30_seconds]
-
   length    = 1
   prefix    = terraform.workspace
   separator = ":"
@@ -32,3 +30,8 @@ output "random_pet" {
   value = random_pet.example.id
 }
 
+output "all_random_pets" {
+  value = [
+    random_pet.example.id
+  ]
+}

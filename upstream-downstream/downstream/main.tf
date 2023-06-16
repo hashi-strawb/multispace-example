@@ -3,7 +3,7 @@ terraform {
     organization = "fancycorp"
 
     workspaces {
-      tags = ["multispace:downstream", "example:1-run-triggers"]
+      tags = ["multispace:downstream"]
     }
   }
 
@@ -39,7 +39,7 @@ data "tfe_outputs" "upstream" {
 output "upstream_random_pets" {
   value = [
     for upstream in var.upstream_workspaces :
-    data.tfe_outputs.upstream[upstream].nonsensitive_values.random_pet
+    data.tfe_outputs.upstream[upstream].nonsensitive_values.all_random_pets
   ]
 }
 
