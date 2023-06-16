@@ -41,3 +41,26 @@ resource "tfe_workspace" "downstream" {
 
   tag_names = ["multispace:downstream", "example:2-workspace-manager"]
 }
+
+
+resource "tfe_workspace_run" "downstream" {
+  workspace_id = tfe_workspace.downstream.id
+
+  # depends_on = creds and other dependencies go here
+
+  apply {
+    # Fire and Forget
+    wait_for_run = false
+
+    # auto-apply
+    manual_confirm = false
+  }
+
+  destroy {
+    # Wait for destroy before doing anything else
+    wait_for_run = true
+
+    # auto-apply
+    manual_confirm = false
+  }
+}
