@@ -52,7 +52,7 @@ resource "tfe_variable" "tfc_org" {
 resource "tfe_workspace_run" "downstream" {
   workspace_id = tfe_workspace.downstream.id
 
-  depends_on = tfe_variable.tfc_org
+  depends_on = [tfe_variable.tfc_org]
 
   apply {
     # Fire and Forget
