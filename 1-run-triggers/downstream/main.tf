@@ -25,10 +25,14 @@ variable "upstream_workspaces" {
   default = ["1-upstream"]
 }
 
+variable "tfc_org" {
+  default = "fancycorp"
+}
+
 data "tfe_outputs" "upstream" {
   for_each = var.upstream_workspaces
 
-  organization = "fancycorp"
+  organization = var.tfc_org
   workspace    = each.key
 }
 
