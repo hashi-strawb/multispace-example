@@ -29,11 +29,14 @@ variable "tfc_org" {
   type = string
 }
 
+provider "tfe" {
+  organization = var.tfc_org
+}
+
 data "tfe_outputs" "upstream" {
   for_each = var.upstream_workspaces
 
-  organization = var.tfc_org
-  workspace    = each.key
+  workspace = each.key
 }
 
 output "upstream_random_pets" {
