@@ -52,7 +52,7 @@ resource "random_pet" "example" {
   separator = ":"
 }
 
-output "downstream_random_pet" {
+output "random_pet" {
   value = random_pet.example.id
 }
 
