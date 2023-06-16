@@ -12,14 +12,14 @@ resource "tfe_workspace" "ws-manager-upstream" {
 
   project_id = tfe_project.ws-manager.id
 
-  working_directory = "workspace-manager/upstream"
+  working_directory = "workspace-manager"
 
   vcs_repo {
     identifier         = "hashi-strawb/multispace-example"
     ingress_submodules = false
     oauth_token_id     = data.tfe_oauth_client.client.oauth_token_id
   }
-  tag_names = ["multispace:upstream", "example:workspace-manager"]
+  tag_names = ["multispace:workspace-manager"]
 }
 
 resource "tfe_variable" "ws-manager-upstream-tfc_org" {
