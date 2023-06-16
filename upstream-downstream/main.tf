@@ -3,7 +3,7 @@ terraform {
     organization = "fancycorp"
 
     workspaces {
-      tags = ["multispace:downstream"]
+      tags = ["multispace:upstream-downstream"]
     }
   }
 
