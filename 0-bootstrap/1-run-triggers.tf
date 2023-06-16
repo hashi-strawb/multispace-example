@@ -16,12 +16,14 @@ resource "tfe_workspace" "run-triggers-upstream-a" {
   vcs_repo {
     identifier         = "hashi-strawb/multispace-example"
     ingress_submodules = false
-    oauth_token_id     = var.oauth_token_id
+    oauth_token_id     = data.tfe_oauth_client.client.oauth_token_id
   }
 
   remote_state_consumer_ids = [
     tfe_workspace.run-triggers-downstream.id
   ]
+
+  tag_names = ["multispace:upstream", "example:1-run-triggers"]
 }
 
 
@@ -37,12 +39,14 @@ resource "tfe_workspace" "run-triggers-upstream-b" {
   vcs_repo {
     identifier         = "hashi-strawb/multispace-example"
     ingress_submodules = false
-    oauth_token_id     = var.oauth_token_id
+    oauth_token_id     = data.tfe_oauth_client.client.oauth_token_id
   }
 
   remote_state_consumer_ids = [
     tfe_workspace.run-triggers-downstream.id
   ]
+
+  tag_names = ["multispace:upstream", "example:1-run-triggers"]
 }
 
 
@@ -58,8 +62,10 @@ resource "tfe_workspace" "run-triggers-downstream" {
   vcs_repo {
     identifier         = "hashi-strawb/multispace-example"
     ingress_submodules = false
-    oauth_token_id     = var.oauth_token_id
+    oauth_token_id     = data.tfe_oauth_client.client.oauth_token_id
   }
+
+  tag_names = ["multispace:downstream", "example:1-run-triggers"]
 }
 
 resource "tfe_run_trigger" "run-triggers-upstream-a-downstream" {
