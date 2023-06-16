@@ -11,7 +11,7 @@ resource "tfe_workspace" "run-triggers-upstream-a" {
   force_delete   = true
   project_id     = tfe_project.run-triggers.id
 
-  working_directory = "upstream-downstream/upstream"
+  working_directory = "upstream-downstream"
 
   vcs_repo {
     identifier         = "hashi-strawb/multispace-example"
@@ -23,7 +23,14 @@ resource "tfe_workspace" "run-triggers-upstream-a" {
     tfe_workspace.run-triggers-downstream.id
   ]
 
-  tag_names = ["multispace:upstream"]
+  tag_names = ["multispace:upstream-downstream"]
+}
+
+resource "tfe_variable" "run-triggers-upstream-a-tfc_org" {
+  category     = "terraform"
+  key          = "tfc_org"
+  value        = var.tfc_org
+  workspace_id = tfe_workspace.run-triggers-upstream-a.id
 }
 
 
@@ -34,7 +41,7 @@ resource "tfe_workspace" "run-triggers-upstream-b" {
   force_delete   = true
   project_id     = tfe_project.run-triggers.id
 
-  working_directory = "upstream-downstream/upstream"
+  working_directory = "upstream-downstream"
 
   vcs_repo {
     identifier         = "hashi-strawb/multispace-example"
@@ -46,7 +53,14 @@ resource "tfe_workspace" "run-triggers-upstream-b" {
     tfe_workspace.run-triggers-downstream.id
   ]
 
-  tag_names = ["multispace:upstream"]
+  tag_names = ["multispace:upstream-downstream"]
+}
+
+resource "tfe_variable" "run-triggers-upstream-b-tfc_org" {
+  category     = "terraform"
+  key          = "tfc_org"
+  value        = var.tfc_org
+  workspace_id = tfe_workspace.run-triggers-upstream-b.id
 }
 
 
@@ -57,7 +71,7 @@ resource "tfe_workspace" "run-triggers-downstream" {
   force_delete   = true
   project_id     = tfe_project.run-triggers.id
 
-  working_directory = "upstream-downstream/downstream"
+  working_directory = "upstream-downstream"
 
   vcs_repo {
     identifier         = "hashi-strawb/multispace-example"
@@ -65,7 +79,7 @@ resource "tfe_workspace" "run-triggers-downstream" {
     oauth_token_id     = data.tfe_oauth_client.client.oauth_token_id
   }
 
-  tag_names = ["multispace:downstream"]
+  tag_names = ["multispace:upstream-downstream"]
 }
 
 resource "tfe_run_trigger" "run-triggers-upstream-a-downstream" {
