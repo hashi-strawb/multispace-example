@@ -47,6 +47,7 @@ resource "tfe_workspace_run" "downstream" {
 
   # depends_on = creds and other dependencies go here
   # for a real example, see ../0-bootstrap/2-workspace-manager.tf
+  # (that example is a destroy-only example too, for some variety)
 
   apply {
     # Fire and Forget
