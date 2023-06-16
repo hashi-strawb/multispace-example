@@ -37,10 +37,10 @@ data "tfe_outputs" "upstream" {
 }
 
 output "upstream_random_pets" {
-  value = [
+  value = flatten([
     for upstream in var.upstream_workspaces :
     data.tfe_outputs.upstream[upstream].nonsensitive_values.all_random_pets
-  ]
+  ])
 }
 
 resource "random_pet" "example" {
