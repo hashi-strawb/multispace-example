@@ -1,6 +1,8 @@
 # use the owner team as a simple example
 # in production, you would want fewer permissions
 
+# TODO: Create a Team, use the token for that. It's probably fine for this...
+
 data "tfe_team" "owners" {
   name = "owners"
 }
@@ -22,9 +24,6 @@ resource "tfe_variable" "tfc-creds" {
 }
 
 resource "tfe_workspace_variable_set" "tfc-creds" {
-  for_each = toset([
-    tfe_workspace.ws-manager-upstream.id,
-  ])
   variable_set_id = tfe_variable_set.tfc-creds.id
-  workspace_id    = each.key
+  workspace_id    = tfe_workspace.ws-manager-upstream.id
 }
