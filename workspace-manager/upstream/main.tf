@@ -31,7 +31,7 @@ resource "tfe_workspace" "downstream" {
   force_delete   = true
   project_id     = data.tfe_workspace.self.project_id
 
-  working_directory = "upstream-downstream/downstream"
+  working_directory = "upstream-downstream"
 
   vcs_repo {
     identifier         = "hashi-strawb/multispace-example"
