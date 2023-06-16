@@ -1,13 +1,3 @@
-provider "tfe" {
-  organization = "fancycorp"
-}
-
-variable "oauth_token_id" {
-  default = "ot-8hSCfUe8VncQMmW6"
-}
-
-
-
 import {
   id = "prj-FhdgNGo4ceoBc82z"
   to = tfe_project.run-triggers
