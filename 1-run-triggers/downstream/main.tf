@@ -32,16 +32,31 @@ data "tfe_outputs" "upstream" {
   workspace    = each.key
 }
 
+output "upstream_random_pets" {
+  value = [
+    for upstream in var.upstream_workspaces :
+    data.tfe_outputs.upstream[upstream].nonsensitive_values.random_pet
+  ]
+}
+
 resource "random_pet" "example" {
   length    = 1
   prefix    = terraform.workspace
   separator = ":"
 }
 
-output "random_pet" {
-  value = {
-    for upstream in var.upstream_workspaces :
-    data.tfe_outputs.upstream[upstream].nonsensitive_values.random_pet => random_pet.example.id
-  }
+output "downstream_random_pet" {
+  value = random_pet.example.id
 }
 
+output "all_random_pets" {
+  value = concat(
+    [
+      for upstream in var.upstream_workspaces :
+      data.tfe_outputs.upstream[upstream].nonsensitive_values.random_pet
+    ],
+    [
+      random_pet.example.id
+    ]
+  )
+}
