@@ -22,7 +22,7 @@ terraform {
 
 variable "upstream_workspaces" {
   type    = set(string)
-  default = ["1-upstream"]
+  default = []
 }
 
 variable "tfc_org" {
