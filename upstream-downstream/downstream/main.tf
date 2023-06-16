@@ -54,13 +54,15 @@ output "downstream_random_pet" {
 }
 
 output "all_random_pets" {
-  value = concat(
-    [
-      for upstream in var.upstream_workspaces :
-      data.tfe_outputs.upstream[upstream].nonsensitive_values.random_pet
-    ],
-    [
-      random_pet.example.id
-    ]
+  value = flatten(
+    concat(
+      [
+        for upstream in var.upstream_workspaces :
+        data.tfe_outputs.upstream[upstream].nonsensitive_values.all_random_pets
+      ],
+      [
+        random_pet.example.id
+      ]
+    )
   )
 }
