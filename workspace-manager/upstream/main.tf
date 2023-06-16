@@ -3,7 +3,7 @@ terraform {
     organization = "fancycorp"
 
     workspaces {
-      tags = ["multispace:upstream", "example:2-workspace-manager"]
+      tags = ["multispace:workspace-manager"]
     }
   }
 }
@@ -39,7 +39,7 @@ resource "tfe_workspace" "downstream" {
     oauth_token_id     = data.tfe_oauth_client.client.oauth_token_id
   }
 
-  tag_names = ["multispace:downstream", "example:2-workspace-manager"]
+  tag_names = ["multispace:upstream-downstream"]
 }
 
 resource "tfe_variable" "tfc_org" {
