@@ -46,7 +46,7 @@ resource "tfe_variable" "tfc_org" {
   category     = "terraform"
   key          = "tfc_org"
   value        = var.tfc_org
-  workspace_id = tfe_workspace.downstreamid
+  workspace_id = tfe_workspace.downstream.id
 }
 
 resource "tfe_workspace_run" "downstream" {
