@@ -1,21 +1,15 @@
-import {
-  id = "prj-FhdgNGo4ceoBc82z"
-  to = tfe_project.run-triggers
-}
 resource "tfe_project" "run-triggers" {
   name = "1 - Run Triggers"
 }
 
 
 
-import {
-  id = "fancycorp/1-upstream-a"
-  to = tfe_workspace.run-triggers-upstream-a
-}
 resource "tfe_workspace" "run-triggers-upstream-a" {
   name           = "1-upstream-a"
   auto_apply     = true
   queue_all_runs = false
+  force_delete   = true
+  project_id     = tfe_project.run-triggers.id
 
   working_directory = "1-run-triggers/upstream"
 
@@ -27,14 +21,12 @@ resource "tfe_workspace" "run-triggers-upstream-a" {
 }
 
 
-import {
-  id = "fancycorp/1-upstream-b"
-  to = tfe_workspace.run-triggers-upstream-b
-}
 resource "tfe_workspace" "run-triggers-upstream-b" {
   name           = "1-upstream-b"
   auto_apply     = true
   queue_all_runs = false
+  force_delete   = true
+  project_id     = tfe_project.run-triggers.id
 
   working_directory = "1-run-triggers/upstream"
 
@@ -46,14 +38,12 @@ resource "tfe_workspace" "run-triggers-upstream-b" {
 }
 
 
-import {
-  id = "fancycorp/1-downstream"
-  to = tfe_workspace.run-triggers-downstream
-}
 resource "tfe_workspace" "run-triggers-downstream" {
   name           = "1-downstream"
   auto_apply     = true
   queue_all_runs = false
+  force_delete   = true
+  project_id     = tfe_project.run-triggers.id
 
   working_directory = "1-run-triggers/downstream"
 
@@ -64,29 +54,17 @@ resource "tfe_workspace" "run-triggers-downstream" {
   }
 }
 
-import {
-  id = "rt-85EfZSGVPPkSz6Hx"
-  to = tfe_run_trigger.run-triggers-upstream-a-downstream
-}
 resource "tfe_run_trigger" "run-triggers-upstream-a-downstream" {
   sourceable_id = tfe_workspace.run-triggers-upstream-a.id
   workspace_id  = tfe_workspace.run-triggers-downstream.id
 }
 
-import {
-  id = "rt-LpBykM5jJkwDTKjr"
-  to = tfe_run_trigger.run-triggers-upstream-b-downstream
-}
 resource "tfe_run_trigger" "run-triggers-upstream-b-downstream" {
   sourceable_id = tfe_workspace.run-triggers-upstream-b.id
   workspace_id  = tfe_workspace.run-triggers-downstream.id
 }
 
 
-import {
-  id = "fancycorp/1-downstream/var-7pdiEFaa4VWG7ZkM"
-  to = tfe_variable.run-triggers-downstream-upstreams
-}
 resource "tfe_variable" "run-triggers-downstream-upstreams" {
   category = "terraform"
   hcl      = true
