@@ -76,5 +76,31 @@ resource "tfe_variable" "chain-upstreams" {
 
 
 
+#
+# Orchestrator Workspace
+#
 
-# TODO: Orchestrator Workspace
+resource "tfe_workspace" "chain-orchestrator" {
+  name           = "3-chain-orchestrator"
+  auto_apply     = true
+  queue_all_runs = false
+  force_delete   = true
+  project_id     = tfe_project.chain.id
+
+  tag_names = ["multispace:chain-orchestrator"]
+
+  working_directory = "chain-orchestrator"
+
+  vcs_repo {
+    identifier         = "hashi-strawb/multispace-example"
+    ingress_submodules = false
+    oauth_token_id     = data.tfe_oauth_client.client.oauth_token_id
+  }
+}
+
+resource "tfe_variable" "chain-orchestrator-tfc_org" {
+  category     = "terraform"
+  key          = "tfc_org"
+  value        = var.tfc_org
+  workspace_id = tfe_workspace.chain-orchestrator.id
+}
