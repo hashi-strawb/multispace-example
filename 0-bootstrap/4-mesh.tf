@@ -87,9 +87,15 @@ resource "tfe_workspace" "mesh-orchestrator" {
   name       = "4-mesh-orchestrator"
   project_id = tfe_project.mesh.id
 
-  tag_names = ["multispace:orchestrator"]
+  tag_names = ["multispace:mesh-orchestrator"]
 
-  # CLI-driven for now, while I work on this
+  working_directory = "mesh-orchestrator"
+
+  vcs_repo {
+    identifier         = "hashi-strawb/multispace-example"
+    ingress_submodules = false
+    oauth_token_id     = data.tfe_oauth_client.client.oauth_token_id
+  }
 }
 
 resource "tfe_variable" "mesh-orchestrator-tfc_org" {
@@ -98,21 +104,5 @@ resource "tfe_variable" "mesh-orchestrator-tfc_org" {
   value        = var.tfc_org
   workspace_id = tfe_workspace.mesh-orchestrator.id
 }
-
-resource "tfe_variable" "mesh-orchestrator-slowdown" {
-  # https://github.com/hashicorp/terraform/issues/27765
-  # TF_CLI_ARGS_apply="-parallelism=1" on orchestrator workspace
-  # not because we actually need it, just for the sake of artificially slowing it down
-  # so we can take nice screenshots
-
-  category     = "env"
-  key          = "TF_CLI_ARGS_apply"
-  value        = "-parallelism=1"
-  workspace_id = tfe_workspace.mesh-orchestrator.id
-}
-
-# TODO: any vars related to orchestration order
-
-
 
 # TODO: Destroy orchestrator
