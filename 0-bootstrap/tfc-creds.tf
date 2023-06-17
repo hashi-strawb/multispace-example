@@ -28,6 +28,10 @@ resource "tfe_workspace_variable_set" "tfc-creds" {
   workspace_id    = tfe_workspace.ws-manager-upstream.id
 }
 
+resource "tfe_workspace_variable_set" "tfc-creds-chain-orchestrator" {
+  variable_set_id = tfe_variable_set.tfc-creds.id
+  workspace_id    = tfe_workspace.chain-orchestrator.id
+}
 
 resource "tfe_workspace_variable_set" "tfc-creds-mesh-orchestrator" {
   variable_set_id = tfe_variable_set.tfc-creds.id
