@@ -12,7 +12,7 @@ resource "tfe_team_token" "manage-workspaces" {
 }
 
 resource "tfe_variable_set" "tfc-creds" {
-  name = "TFC: Workspace Manager"
+  name = "TFC: Workspace Creator"
 }
 
 resource "tfe_variable" "tfc-creds" {
@@ -25,15 +25,15 @@ resource "tfe_variable" "tfc-creds" {
 
 resource "tfe_workspace_variable_set" "tfc-creds" {
   variable_set_id = tfe_variable_set.tfc-creds.id
-  workspace_id    = tfe_workspace.ws-manager-upstream.id
+  workspace_id    = tfe_workspace.ws-creator-upstream.id
 }
 
-resource "tfe_workspace_variable_set" "tfc-creds-chain-orchestrator" {
+resource "tfe_workspace_variable_set" "tfc-creds-chain-runner" {
   variable_set_id = tfe_variable_set.tfc-creds.id
-  workspace_id    = tfe_workspace.chain-orchestrator.id
+  workspace_id    = tfe_workspace.chain-runner.id
 }
 
-resource "tfe_workspace_variable_set" "tfc-creds-mesh-orchestrator" {
+resource "tfe_workspace_variable_set" "tfc-creds-mesh-runner" {
   variable_set_id = tfe_variable_set.tfc-creds.id
-  workspace_id    = tfe_workspace.mesh-orchestrator.id
+  workspace_id    = tfe_workspace.mesh-runner.id
 }

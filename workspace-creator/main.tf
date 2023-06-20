@@ -3,7 +3,7 @@ terraform {
     organization = "fancycorp"
 
     workspaces {
-      tags = ["multispace:workspace-manager"]
+      tags = ["multispace:workspace-creator"]
     }
   }
 }

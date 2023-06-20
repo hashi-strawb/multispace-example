@@ -80,19 +80,19 @@ resource "tfe_variable" "mesh-upstreams" {
 
 
 #
-# Orchestrator Workspace
+# Runner Workspace
 #
 
-resource "tfe_workspace" "mesh-orchestrator" {
-  name           = "4-mesh-orchestrator"
+resource "tfe_workspace" "mesh-runner" {
+  name           = "4-mesh-runner"
   auto_apply     = true
   queue_all_runs = false
   force_delete   = true
   project_id     = tfe_project.mesh.id
 
-  tag_names = ["multispace:mesh-orchestrator"]
+  tag_names = ["multispace:mesh-runner"]
 
-  working_directory = "mesh-orchestrator"
+  working_directory = "mesh-runner"
 
   vcs_repo {
     identifier         = "hashi-strawb/multispace-example"
@@ -101,17 +101,17 @@ resource "tfe_workspace" "mesh-orchestrator" {
   }
 }
 
-resource "tfe_variable" "mesh-orchestrator-tfc_org" {
+resource "tfe_variable" "mesh-runner-tfc_org" {
   category     = "terraform"
   key          = "tfc_org"
   value        = var.tfc_org
-  workspace_id = tfe_workspace.mesh-orchestrator.id
+  workspace_id = tfe_workspace.mesh-runner.id
 }
 
 /*
-resource "tfe_variable" "mesh-orchestrator-slowdown" {
+resource "tfe_variable" "mesh-runner-slowdown" {
   # https://github.com/hashicorp/terraform/issues/27765
-  # TF_CLI_ARGS_apply="-parallelism=1" on orchestrator workspace
+  # TF_CLI_ARGS_apply="-parallelism=1" on runner workspace
   # not because we actually need it, just for the sake of artificially slowing it down
   # so we can take nice screenshots, or simulate what this would look like in
   # low concurrency situations
@@ -119,6 +119,6 @@ resource "tfe_variable" "mesh-orchestrator-slowdown" {
   category     = "env"
   key          = "TF_CLI_ARGS_apply"
   value        = "-parallelism=1"
-  workspace_id = tfe_workspace.mesh-orchestrator.id
+  workspace_id = tfe_workspace.mesh-runner.id
 }
 */

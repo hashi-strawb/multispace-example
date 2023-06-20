@@ -77,19 +77,19 @@ resource "tfe_variable" "chain-upstreams" {
 
 
 #
-# Orchestrator Workspace
+# Runner Workspace
 #
 
-resource "tfe_workspace" "chain-orchestrator" {
-  name           = "3-chain-orchestrator"
+resource "tfe_workspace" "chain-runner" {
+  name           = "3-chain-runner"
   auto_apply     = true
   queue_all_runs = false
   force_delete   = true
   project_id     = tfe_project.chain.id
 
-  tag_names = ["multispace:chain-orchestrator"]
+  tag_names = ["multispace:chain-runner"]
 
-  working_directory = "chain-orchestrator"
+  working_directory = "chain-runner"
 
   vcs_repo {
     identifier         = "hashi-strawb/multispace-example"
@@ -98,9 +98,9 @@ resource "tfe_workspace" "chain-orchestrator" {
   }
 }
 
-resource "tfe_variable" "chain-orchestrator-tfc_org" {
+resource "tfe_variable" "chain-runner-tfc_org" {
   category     = "terraform"
   key          = "tfc_org"
   value        = var.tfc_org
-  workspace_id = tfe_workspace.chain-orchestrator.id
+  workspace_id = tfe_workspace.chain-runner.id
 }

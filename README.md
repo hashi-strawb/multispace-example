@@ -34,7 +34,7 @@ one of the Upstream workspaces will still trigger an apply on the Downstream. Ho
 depends on both the Upstream workspaces, it will fail. After the apply on the second Upstream however, the Downstream
 workspace should apply successfully.
 
-## Example 2: Workspace Manager
+## Example 2: Workspace Creator
 
 This is an example where we create a workspace, some variables, and other things, then kick off an apply.
 That last part is very similar to Run Triggers.
@@ -46,25 +46,25 @@ uses to manage this "Workspace Manager" workspace.
 
 ## Example 3: Chain
 
-An example of a chain of workspaces which must run in a particular order, and an orchestrator workspace which handles
+An example of a chain of workspaces which must run in a particular order, and an runner workspace which handles
 that ordering.
 
-Here you should see our Orchestrator workspace trigger applies on each workspace in the chain in order. When it comes to
+Here you should see our Runner workspace trigger applies on each workspace in the chain in order. When it comes to
 a destroy, the destroys should be triggered in reverse order.
 
 ## Example 4: Mesh
 
 A more complex example, with 3 upstream workspaces which must run before any of three downstream workspaces run.
 
-The Orchestrator workspace will wait until all three Upstream workspaces are complete before triggering any Downstream
+The Runner workspace will wait until all three Upstream workspaces are complete before triggering any Downstream
 workspaces.
 
 If you have enough Concurrency on your TFC org, TF will run an apply on three at once. To simulate what would happen
-in the case that you're limited on Concurrency, you can add the following Environment Variable to the Orchestrator
+in the case that you're limited on Concurrency, you can add the following Environment Variable to the Runner
 workspace:
 
 ```
 TF_CLI_ARGS_apply="-parallelism=1"
 ```
 
-This forces Terraform on the Orchestrator workspace to only apply one resource at a time.
+This forces Terraform on the Runner workspace to only apply one resource at a time.
