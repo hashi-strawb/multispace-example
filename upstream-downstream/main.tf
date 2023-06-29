@@ -57,6 +57,18 @@ output "upstream_all_random_pets" {
   ])
 }
 
+
+resource "random_integer" "duration" {
+  min = 30
+  max = 90
+}
+
+# Simulate this workspace doing a bunch of useful and interesting things
+resource "time_sleep" "wait" {
+  create_duration = "${random_integer.duration.id}s"
+}
+
+
 resource "random_pet" "example" {
   length    = 1
   prefix    = terraform.workspace
