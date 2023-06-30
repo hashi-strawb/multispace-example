@@ -1,13 +1,3 @@
-terraform {
-  cloud {
-    organization = "fancycorp"
-
-    workspaces {
-      name = "multispace-blog"
-    }
-  }
-}
-
 variable "tfc_org" {
   default = "fancycorp"
 }

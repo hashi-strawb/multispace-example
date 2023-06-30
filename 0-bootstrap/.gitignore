@@ -1,3 +1,7 @@
 # do not commit auto-generated TF code.
 # force me to move it to another directory first.
 generated.tf
+
+
+# and don't commit TF state either
+terraform.tfstate.d

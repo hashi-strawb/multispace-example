@@ -7,8 +7,7 @@ Accompaniment to blog post LINK TODO
 There are a few other dependencies:
 * Your TFC org must have VCS set up within it to create new workspaces linked to GitHub orgs. The config here assumes
  exactly one GitHub VCS provider.
-* The bootstrap workspace runs locally. You'll need to `terraform login` to get that working, and create a Workspace to
- store the state.
+* The bootstrap workspace runs locally. You'll need to `terraform login` to get that working
  (there's no reason why you can't run the bootstrap workspace remotely Terraform Cloud too... there's just less to setup
  if you run it locally)
 * There may be other dependencies I've missed. I'll update if I find any.
