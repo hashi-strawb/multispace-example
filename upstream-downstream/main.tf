@@ -14,8 +14,8 @@ terraform {
     }
 
     tfe = {
-      source  = "hashicorp/tfe"
-      version = ">= 0.45.0"
+      # Latest fixes for tfe_workspace_run
+      version = ">= 0.46.0"
     }
   }
 }

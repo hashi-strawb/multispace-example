@@ -6,6 +6,14 @@ terraform {
       tags = ["multispace:mesh-runner"]
     }
   }
+  required_providers {
+    tfe = {
+      source = "hashicorp/tfe"
+
+      # Latest fixes for tfe_workspace_run
+      version = ">= 0.46.0"
+    }
+  }
 }
 
 variable "tfc_org" {
