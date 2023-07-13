@@ -1,6 +1,7 @@
 # Multispace (tfe_workspace_run) TFC Examples
 
-Accompaniment to blog post LINK TODO
+Accompaniment to blog post:
+https://www.hashicorp.com/blog/terraform-apply-as-code-the-multispace-pattern
 
 ## To Provision...
 
