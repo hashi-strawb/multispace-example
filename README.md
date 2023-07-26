@@ -52,6 +52,8 @@ that ordering.
 Here you should see our Runner workspace trigger applies on each workspace in the chain in order. When it comes to
 a destroy, the destroys should be triggered in reverse order.
 
+Note: If running in a free-tier Terraform Cloud, you will need to switch the "3-chain-runner" workspace to run in local mode, otherwise you will hit the 1-run concurrency limit.
+
 ## Example 4: Mesh
 
 A more complex example, with 3 upstream workspaces which must run before any of three downstream workspaces run.
@@ -68,3 +70,5 @@ TF_CLI_ARGS_apply="-parallelism=1"
 ```
 
 This forces Terraform on the Runner workspace to only apply one resource at a time.
+
+Note: If running in a free-tier Terraform Cloud, you will need to switch the "4-mesh-runner" workspace to run in local mode, otherwise you will hit the 1-run concurrency limit.
